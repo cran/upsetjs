@@ -6,6 +6,8 @@
 \usage{
 chartLabels(
   upsetjs,
+  title = NULL,
+  description = NULL,
   combination.name = NULL,
   combination.name.axis.offset = NULL,
   set.name = NULL,
@@ -15,6 +17,10 @@ chartLabels(
 }
 \arguments{
 \item{upsetjs}{an object of class \code{upsetjs} or \code{upsetjs_proxy}}
+
+\item{title}{the chart title}
+
+\item{description}{the chart description}
 
 \item{combination.name}{the label for the combination chart}
 

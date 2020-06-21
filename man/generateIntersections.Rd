@@ -10,7 +10,8 @@ generateIntersections(
   max = NULL,
   empty = FALSE,
   order.by = "cardinality",
-  limit = NULL
+  limit = NULL,
+  colors = NULL
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ generateIntersections(
 \item{order.by}{order intersections by cardinality, degree, name or a combination of it}
 
 \item{limit}{limit the number of intersections to the top N}
+
+\item{colors}{the optional list with set name to color}
 }
 \value{
 the object given as first argument

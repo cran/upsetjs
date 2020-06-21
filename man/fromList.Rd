@@ -10,7 +10,8 @@ fromList(
   order.by = "cardinality",
   limit = NULL,
   shared = NULL,
-  shared.mode = "click"
+  shared.mode = "click",
+  colors = NULL
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ fromList(
 \item{shared}{a crosstalk shared data frame}
 
 \item{shared.mode}{whether on 'hover' or 'click' (default) is synced}
+
+\item{colors}{the optional list with set name to color}
 }
 \value{
 the object given as first argument

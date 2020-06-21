@@ -10,9 +10,14 @@ chartTheme(
   selection.color = NULL,
   alternating.color = NULL,
   color = NULL,
+  has.selection.color = NULL,
   text.color = NULL,
   hover.hint.color = NULL,
-  not.member.color = NULL
+  not.member.color = NULL,
+  value.text.color = NULL,
+  stroke.color = NULL,
+  has.selection.opacity = NULL,
+  opacity = NULL
 )
 }
 \arguments{
@@ -26,11 +31,21 @@ chartTheme(
 
 \item{color}{main bar color}
 
+\item{has.selection.color}{main color used when a selection is present}
+
 \item{text.color}{main text color}
 
 \item{hover.hint.color}{color of the hover hint}
 
 \item{not.member.color}{color of the dot if not a member}
+
+\item{value.text.color}{value text color (venn diagram only)}
+
+\item{stroke.color}{circle stroke color (venn diagram only)}
+
+\item{has.selection.opacity}{main opacity used when a selection is present}
+
+\item{opacity}{main bar opacity}
 }
 \value{
 the object given as first argument

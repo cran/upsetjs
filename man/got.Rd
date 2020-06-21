@@ -4,7 +4,8 @@
 \name{got}
 \alias{got}
 \title{Games of Thrones Character dataset for UpSet.js}
-\format{A data frame with 22 rows and 6 variables/sets:
+\format{
+A data frame with 22 rows and 6 variables/sets:
 \describe{
 \item{Lannister}{character part of the Lannister house}
 \item{Stark}{character part of the Start house}
@@ -12,7 +13,8 @@
 \item{male}{character is male}
 \item{royal}{character is royal}
 \item{was.killed}{character was killed}
-}}
+}
+}
 \source{
 \url{https://github.com/jeffreylancaster/game-of-thrones}
 }

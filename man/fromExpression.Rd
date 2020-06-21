@@ -4,7 +4,13 @@
 \alias{fromExpression}
 \title{generates the sets from a lists object that contained the cardinalities of both sets and combinations (&)}
 \usage{
-fromExpression(upsetjs, value, symbol = "&", order.by = "cardinality")
+fromExpression(
+  upsetjs,
+  value,
+  symbol = "&",
+  order.by = "cardinality",
+  colors = NULL
+)
 }
 \arguments{
 \item{upsetjs}{an object of class \code{upsetjs} or \code{upsetjs_proxy}}
@@ -14,6 +20,8 @@ fromExpression(upsetjs, value, symbol = "&", order.by = "cardinality")
 \item{symbol}{the symbol how to split list names to get the sets}
 
 \item{order.by}{order intersections by cardinality or name}
+
+\item{colors}{the optional list with set name to color}
 }
 \value{
 the object given as first argument
@@ -22,6 +30,6 @@ the object given as first argument
 generates the sets from a lists object that contained the cardinalities of both sets and combinations (&)
 }
 \examples{
-upsetjs() \%>\% fromExpression(list(a=c(1,2,3), b=c(2,3), `a&c`=c(2,3)))
+upsetjs() \%>\% fromExpression(list(a=3, b=2, `a&b`=2))
 
 }

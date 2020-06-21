@@ -11,7 +11,11 @@ chartFontSizes(
   set.label = NULL,
   axis.tick = NULL,
   bar.label = NULL,
-  legend = NULL
+  legend = NULL,
+  title = NULL,
+  description = NULL,
+  export.label = NULL,
+  value.label = NULL
 )
 }
 \arguments{
@@ -28,6 +32,14 @@ chartFontSizes(
 \item{bar.label}{font size of the bar label, default: 10px}
 
 \item{legend}{font size of the legend label, default: 10px}
+
+\item{title}{font size of the chart title, default: 24px}
+
+\item{description}{font size of the chart description, default: 16px}
+
+\item{export.label}{font size of the export label, default: 10px}
+
+\item{value.label}{font size of the value label, (venn diagram only) default: 12px}
 }
 \value{
 the object given as first argument
