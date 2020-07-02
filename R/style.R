@@ -77,6 +77,35 @@ chartVennLayout = function(upsetjs,
 }
 
 #'
+#' specify the chart karnaugh map layout
+#' @param upsetjs an object of class \code{upsetjs_kmap} or \code{upsetjs_kmap_proxy}
+#' @param padding padding around the plot
+#' @param numerical.scale numerical scale: linear (default) or log
+#' @param bar.padding padding ratio (default 0.1) for the bar charts
+#' @return the object given as first argument
+#' @examples
+#' upsetjsKarnaughMap() %>% fromList(list(a=c(1,2,3), b=c(2,3))) %>% chartKarnaughMapLayout(padding=10)
+#'
+#' @export
+chartKarnaughMapLayout = function(upsetjs,
+                           padding = NULL,
+                           bar.padding = NULL,
+                           numerical.scale = NULL) {
+  checkKarnaughMapArgument(upsetjs)
+  stopifnottype('padding', padding)
+  stopifnottype('bar.padding', bar.padding)
+  stopifnot(
+    is.null(numerical.scale) ||
+      (numerical.scale == 'linear' || numerical.scale == 'log')
+  )
+
+  props = list(padding = padding,
+               numericalScale = numerical.scale,
+               barPadding = bar.padding)
+  setProperties(upsetjs, props, clean = TRUE)
+}
+
+#'
 #' specify chart labels
 #' @param upsetjs an object of class \code{upsetjs} or \code{upsetjs_proxy}
 #' @param title the chart title
@@ -123,6 +152,7 @@ chartLabels = function(upsetjs,
   )
   setProperties(upsetjs, props, clean = TRUE)
 }
+
 #'
 #' specify chart labels
 #' @param upsetjs an object of class \code{upsetjs_venn} or \code{upsetjs_venn_proxy}
@@ -137,6 +167,29 @@ chartVennLabels = function(upsetjs,
                            title = NULL,
                            description = NULL) {
   checkVennDiagramArgument(upsetjs)
+  stopifnottype('title', title, is.character, 'string')
+  stopifnottype('description', description, is.character, 'string')
+
+  props = list(title = title,
+               description = description)
+  setProperties(upsetjs, props, clean = TRUE)
+}
+
+#'
+#' specify chart labels
+#' @param upsetjs an object of class \code{upsetjs_kamp} or \code{upsetjs_kmap_proxy}
+#' @param title the chart title
+#' @param description the chart description
+#' @return the object given as first argument
+#' @examples
+#' upsetjsKarnaughMap() %>% fromList(list(a=c(1,2,3), b=c(2,3))) %>%
+#' chartKarnaughMapLabels(title="Test")
+#'
+#' @export
+chartKarnaughMapLabels = function(upsetjs,
+                           title = NULL,
+                           description = NULL) {
+  checkKarnaughMapArgument(upsetjs)
   stopifnottype('title', title, is.character, 'string')
   stopifnottype('description', description, is.character, 'string')
 
@@ -174,7 +227,7 @@ chartFontSizes = function(upsetjs,
                           description = NULL,
                           export.label = NULL,
                           value.label = NULL) {
-  checkUpSetOrVennArgument(upsetjs)
+  checkUpSetCommonArgument(upsetjs)
   stopifnottype('font.family', font.family, is.character, 'string')
   stopifnottype('chart.label', chart.label, is.character, 'string')
   stopifnottype('set.label', set.label, is.character, 'string')
@@ -218,7 +271,7 @@ chartStyleFlags = function(upsetjs,
                            id = NULL,
                            export.buttons = NULL,
                            class.name = NULL) {
-  checkUpSetOrVennArgument(upsetjs)
+  checkUpSetCommonArgument(upsetjs)
   stopifnottype('export.buttons', export.buttons, is.logical, 'boolean')
   stopifnottype('class.name', class.name, is.character, 'string')
   stopifnottype('id', id, is.character, 'string')
@@ -243,7 +296,8 @@ chartStyleFlags = function(upsetjs,
 #' @param selection.color selection color
 #' @param alternating.color alternating background color
 #' @param value.text.color value text color (venn diagram only)
-#' @param stroke.color circle stroke color (venn diagram only)
+#' @param stroke.color circle stroke color (venn diagram and karnaugh map only)
+#' @param filled enforce filled circles (venn diagram only)
 #' @return the object given as first argument
 #' @examples
 #' upsetjs() %>% fromList(list(a=c(1,2,3), b=c(2,3))) %>% chartTheme(theme="dark")
@@ -261,8 +315,9 @@ chartTheme = function(upsetjs,
                       value.text.color = NULL,
                       stroke.color = NULL,
                       has.selection.opacity = NULL,
-                      opacity = NULL) {
-  checkUpSetOrVennArgument(upsetjs)
+                      opacity = NULL,
+                      filled = NULL) {
+  checkUpSetCommonArgument(upsetjs)
   stopifnot(is.null(theme) ||
               theme == 'light' ||
               theme == 'dark' || theme == 'vega')
@@ -292,6 +347,7 @@ chartTheme = function(upsetjs,
   stopifnottype('stroke.color', stroke.color, is.character, 'string')
   stopifnottype('opacity', opacity)
   stopifnottype('has.selection.opacity', has.selection.opacity)
+  stopifnottype('filled', filled, is.logical, 'logical')
 
   props = list(
     theme = theme,
@@ -305,7 +361,8 @@ chartTheme = function(upsetjs,
     valueTextColor = value.text.color,
     strokeColor = stroke.color,
     opacity = opacity,
-    hasSelectionOpacity = has.selection.opacity
+    hasSelectionOpacity = has.selection.opacity,
+    filled = filled
   )
   setProperties(upsetjs, props, clean = TRUE)
 }

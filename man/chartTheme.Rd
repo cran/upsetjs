@@ -17,7 +17,8 @@ chartTheme(
   value.text.color = NULL,
   stroke.color = NULL,
   has.selection.opacity = NULL,
-  opacity = NULL
+  opacity = NULL,
+  filled = NULL
 )
 }
 \arguments{
@@ -41,11 +42,13 @@ chartTheme(
 
 \item{value.text.color}{value text color (venn diagram only)}
 
-\item{stroke.color}{circle stroke color (venn diagram only)}
+\item{stroke.color}{circle stroke color (venn diagram and karnaugh map only)}
 
 \item{has.selection.opacity}{main opacity used when a selection is present}
 
 \item{opacity}{main bar opacity}
+
+\item{filled}{enforce filled circles (venn diagram only)}
 }
 \value{
 the object given as first argument

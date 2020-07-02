@@ -9,7 +9,8 @@ fromExpression(
   value,
   symbol = "&",
   order.by = "cardinality",
-  colors = NULL
+  colors = NULL,
+  type = "intersection"
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ fromExpression(
 \item{order.by}{order intersections by cardinality or name}
 
 \item{colors}{the optional list with set name to color}
+
+\item{type}{the type of intersections this data represents (intersection,union,distinctIntersection)}
 }
 \value{
 the object given as first argument

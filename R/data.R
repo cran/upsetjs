@@ -132,7 +132,7 @@ fromList = function(upsetjs,
                     shared = NULL,
                     shared.mode = "click",
                     colors = NULL) {
-  checkUpSetOrVennArgument(upsetjs)
+  checkUpSetCommonArgument(upsetjs)
   stopifnot(is.list(value))
   stopifnot(order.by == "cardinality" || order.by == "degree")
   stopifnot(is.null(limit) ||
@@ -169,7 +169,7 @@ fromList = function(upsetjs,
   sorted_sets = sortSets(sets, order.by = order.by, limit = limit)
   gen_sets = if (is.null(limit)) sets else sorted_sets
 
-  gen = if (isVennDiagram(upsetjs)) {
+  gen = if (isVennDiagram(upsetjs) || isKarnaughMap(upsetjs)) {
     generateCombinationsImpl(gen_sets, 'distinctIntersection', 0, NULL, TRUE, 'degree', NULL, colors)
   } else {
     generateCombinationsImpl(gen_sets, 'intersection', 0, NULL, FALSE, order.by, NULL, colors)
@@ -179,6 +179,7 @@ fromList = function(upsetjs,
                   sets = sorted_sets,
                   combinations = gen,
                   elems = elems,
+                  expressionData = FALSE,
                   attrs = list()
                 ))
 }
@@ -190,6 +191,7 @@ fromList = function(upsetjs,
 #' @param symbol the symbol how to split list names to get the sets
 #' @param order.by order intersections by cardinality or name
 #' @param colors the optional list with set name to color
+#' @param type the type of intersections this data represents (intersection,union,distinctIntersection)
 #' @return the object given as first argument
 #' @examples
 #' upsetjs() %>% fromExpression(list(a=3, b=2, `a&b`=2))
@@ -199,44 +201,27 @@ fromExpression = function(upsetjs,
                           value,
                           symbol = "&",
                           order.by = "cardinality",
-                          colors = NULL) {
-  checkUpSetOrVennArgument(upsetjs)
+                          colors = NULL,
+                          type = 'intersection') {
+  checkUpSetCommonArgument(upsetjs)
   stopifnot(is.list(value))
   stopifnot(order.by == "cardinality" || order.by == "degree")
   stopifnot(is.null(colors) || is.list(colors))
+  stopifnot(type == "intersection" || type == "union" || type == "distinctIntersection")
+
+  cc = colorLookup(colors)
 
   degrees = sapply(names(value), function (x) {
     length(unlist(strsplit(x, symbol)))
   })
-  cc = colorLookup(colors)
 
   raw_combinations = value
-  raw_sets = value[degrees == 1]
-
-  toSet = function(key, value, color) {
-    structure(list(
-      name = key,
-      type = "set",
-      color = cc(key),
-      elems = c(),
-      cardinality = value
-    ),
-    class = "upsetjs_set")
-  }
-  sets = mapply(
-    toSet,
-    key = names(raw_sets),
-    value = raw_sets,
-    SIMPLIFY = FALSE
-  )
-  names(sets) = NULL
-  sets = sortSets(sets, order.by = order.by)
 
   toCombination = function(key, value, color) {
     structure(
       list(
         name = key,
-        type = "composite",
+        type = type,
         elems = c(),
         color = cc(key),
         cardinality = value,
@@ -254,11 +239,45 @@ fromExpression = function(upsetjs,
   names(combinations) = NULL
   combinations = sortSets(combinations, order.by = order.by)
 
+  sets = list()
+  defined_sets = c()
+  for(c in combinations) {
+    for(s in c$setNames) {
+      if (!(s %in% defined_sets)) {
+        defined_sets = c(defined_sets, s)
+        sets[[s]] = structure(list(
+          name = s,
+          type = "set",
+          color = cc(s),
+          elems = c(),
+          cardinality = 0
+        ),
+        class = "upsetjs_set")
+      }
+      # determine base set based on type and value
+      set = sets[[s]]
+      if (type == 'distinctIntersection') {
+        set$cardinality = set$cardinality + c$cardinality
+      } else if (length(c$setNames) == 1) {
+        set$cardinality = c$cardinality
+      } else if (type == 'intersection') {
+        set$cardinality = max(set$cardinality, c$cardinality)
+      } else if (type == 'union') {
+        set$cardinality = min(set$cardinality, c$cardinality)
+      }
+      sets[[s]] = set
+    }
+  }
+  names(sets) = NULL
+  sets = sortSets(sets, order.by = order.by)
+
+
   props = list(
     sets = sets,
     combinations = combinations,
     elems = c(),
-    attrs = list()
+    attrs = list(),
+    expressionData = TRUE
   )
   setProperties(upsetjs, props)
 }
@@ -288,7 +307,7 @@ fromDataFrame = function(upsetjs,
                          shared = NULL,
                          shared.mode = "click",
                          colors = NULL) {
-  checkUpSetOrVennArgument(upsetjs)
+  checkUpSetCommonArgument(upsetjs)
   stopifnot(is.data.frame(df))
   stopifnot((
     is.null(attributes) ||
@@ -299,7 +318,7 @@ fromDataFrame = function(upsetjs,
   stopifnottype('limit', limit)
   stopifnot(shared.mode == "click" || shared.mode == "hover")
   stopifnot(is.null(colors) || is.list(colors))
-  
+
   cc = colorLookup(colors)
 
   elems = rownames(df)
@@ -329,7 +348,7 @@ fromDataFrame = function(upsetjs,
   sorted_sets = sortSets(sets, order.by = order.by, limit = limit)
   gen_sets = if (is.null(limit)) sets else sorted_sets
 
-  gen = if (isVennDiagram(upsetjs)) {
+  gen = if (isVennDiagram(upsetjs) || isKarnaughMap(upsetjs)) {
     generateCombinationsImpl(gen_sets,
                              'distinctIntersection',
                              0,
@@ -343,7 +362,8 @@ fromDataFrame = function(upsetjs,
   }
   props = list(sets = sorted_sets,
                combinations = gen,
-               elems = elems)
+               elems = elems,
+               expressionData = FALSE)
 
   upsetjs = setProperties(upsetjs, props)
 

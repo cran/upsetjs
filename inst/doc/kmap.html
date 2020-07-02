@@ -14,7 +14,7 @@
 
 <meta name="date" content="2020-07-02" />
 
-<title>UpSet.js Coloring</title>
+<title>UpSet.js Karnaugh Map</title>
 
 <script>(function() {
   // If window.HTMLWidgets is already defined, then use it; otherwise create a
@@ -1204,37 +1204,68 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<h1 class="title toc-ignore">UpSet.js Coloring</h1>
+<h1 class="title toc-ignore">UpSet.js Karnaugh Map</h1>
 <h4 class="author">Samuel Gratzl</h4>
 <h4 class="date">2020-07-02</h4>
 
 
 
-<div id="upset.js-r-widget---coloring-diagrams" class="section level1">
-<h1>UpSet.js R Widget - Coloring Diagrams</h1>
-<p>UpSet.js allow you to color sets in UpSet plots and Venn diagrams.</p>
+<div id="upset.js-r-widget---karnaugh-map" class="section level1">
+<h1>UpSet.js R Widget - Karnaugh Map</h1>
+<p>UpSet.js has a basic support for adapted version of Karnaugh Maps.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># devtools::install_url(&quot;https://github.com/upsetjs/upsetjs_r/releases/latest/download/upsetjs.tar.gz&quot;)</span></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(upsetjs)</a></code></pre></div>
 <div id="basic-user-interface" class="section level2">
 <h2>Basic User Interface</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">listInput &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">s1 =</span> <span class="kw">c</span>(<span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'c'</span>, <span class="st">'e'</span>, <span class="st">'g'</span>, <span class="st">'h'</span>, <span class="st">'k'</span>, <span class="st">'l'</span>, <span class="st">'m'</span>), <span class="dt">s2 =</span> <span class="kw">c</span>(<span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'d'</span>, <span class="st">'e'</span>, <span class="st">'j'</span>), <span class="dt">s3 =</span> <span class="kw">c</span>(<span class="st">'a'</span>, <span class="st">'e'</span>, <span class="st">'f'</span>, <span class="st">'g'</span>, <span class="st">'h'</span>, <span class="st">'i'</span>, <span class="st">'j'</span>, <span class="st">'l'</span>, <span class="st">'m'</span>))</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">colors &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">s1 =</span> <span class="st">'#1f77b4'</span>, <span class="dt">s2 =</span> <span class="st">'#2ca02c'</span>, <span class="dt">s3 =</span> <span class="st">'#d62728'</span>, <span class="st">`</span><span class="dt">s1&amp;s2</span><span class="st">`</span> =<span class="st"> '#9467bd'</span>, <span class="st">`</span><span class="dt">s1&amp;s3</span><span class="st">`</span> =<span class="st"> '#8c564b'</span>, <span class="st">`</span><span class="dt">s2&amp;s3</span><span class="st">`</span> =<span class="st"> '#e377c2'</span>, <span class="st">`</span><span class="dt">s1&amp;s2&amp;s3</span><span class="st">`</span> =<span class="st"> '#bcbd22'</span>)</a>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">listInput &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">one =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;e&quot;</span>, <span class="st">&quot;g&quot;</span>, <span class="st">&quot;h&quot;</span>, <span class="st">&quot;k&quot;</span>, <span class="st">&quot;l&quot;</span>, <span class="st">&quot;m&quot;</span>), <span class="dt">two =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, </a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">    <span class="st">&quot;b&quot;</span>, <span class="st">&quot;d&quot;</span>, <span class="st">&quot;e&quot;</span>, <span class="st">&quot;j&quot;</span>), <span class="dt">three =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;e&quot;</span>, <span class="st">&quot;f&quot;</span>, <span class="st">&quot;g&quot;</span>, <span class="st">&quot;h&quot;</span>, <span class="st">&quot;i&quot;</span>, <span class="st">&quot;j&quot;</span>, <span class="st">&quot;l&quot;</span>, <span class="st">&quot;m&quot;</span>))</a>
 <a class="sourceLine" id="cb2-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">render &lt;-<span class="st"> </span><span class="cf">function</span>(upsetjs) {</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">  upsetjs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">fromList</span>(listInput, <span class="dt">colors=</span>colors) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">chartTheme</span>(<span class="dt">selection.color=</span><span class="st">&quot;&quot;</span>, <span class="dt">has.selection.opacity=</span><span class="fl">0.3</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">interactiveChart</span>()</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">}</a></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">v &lt;-<span class="st"> </span><span class="kw">upsetjs</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">render</span>()</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">v</a></code></pre></div>
-<div id="htmlwidget-3f6b49fcbf89969eb0ff" style="width:100%;height:480px;" class="upsetjs html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3f6b49fcbf89969eb0ff">{"x":{"mode":"hover","sets":[{"name":"s1","type":"set","elems":["a","b","c","e","g","h","k","l","m"],"color":"#1f77b4"},{"name":"s3","type":"set","elems":["a","e","f","g","h","i","j","l","m"],"color":"#d62728"},{"name":"s2","type":"set","elems":["a","b","d","e","j"],"color":"#2ca02c"}],"combinations":[{"name":"s1","color":"#1f77b4","type":"intersection","elems":["a","b","c","e","g","h","k","l","m"],"setNames":"s1"},{"name":"s3","color":"#d62728","type":"intersection","elems":["a","e","f","g","h","i","j","l","m"],"setNames":"s3"},{"name":"s1&s3","color":"#8c564b","type":"intersection","elems":["a","e","g","h","l","m"],"setNames":["s1","s3"]},{"name":"s2","color":"#2ca02c","type":"intersection","elems":["a","b","d","e","j"],"setNames":"s2"},{"name":"s1&s2","color":"#9467bd","type":"intersection","elems":["a","b","e"],"setNames":["s1","s2"]},{"name":"s2&s3","color":"#e377c2","type":"intersection","elems":["a","e","j"],"setNames":["s2","s3"]},{"name":"s1&s2&s3","color":"#bcbd22","type":"intersection","elems":["a","e"],"setNames":["s1","s2","s3"]}],"elems":["a","b","c","e","g","h","k","l","m","d","j","f","i"],"expressionData":false,"attrs":[],"selectionColor":"","hasSelectionOpacity":0.3,"interactive":true},"evals":[],"jsHooks":[]}</script>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">v &lt;-<span class="st"> </span><span class="kw">upsetjsVennDiagram</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">render</span>()</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">v</a></code></pre></div>
-<div id="htmlwidget-16ac33bfe35003112d41" style="width:100%;height:480px;" class="upsetjs html-widget"></div>
-<script type="application/json" data-for="htmlwidget-16ac33bfe35003112d41">{"x":{"renderMode":"venn","mode":"hover","sets":[{"name":"s1","type":"set","elems":["a","b","c","e","g","h","k","l","m"],"color":"#1f77b4"},{"name":"s3","type":"set","elems":["a","e","f","g","h","i","j","l","m"],"color":"#d62728"},{"name":"s2","type":"set","elems":["a","b","d","e","j"],"color":"#2ca02c"}],"combinations":[{"name":"","color":null,"type":"distinctIntersection","elems":null,"setNames":null},{"name":"s1","color":"#1f77b4","type":"distinctIntersection","elems":["c","k"],"setNames":"s1"},{"name":"s2","color":"#2ca02c","type":"distinctIntersection","elems":"d","setNames":"s2"},{"name":"s3","color":"#d62728","type":"distinctIntersection","elems":["f","i"],"setNames":"s3"},{"name":"s1&s2","color":"#9467bd","type":"distinctIntersection","elems":"b","setNames":["s1","s2"]},{"name":"s1&s3","color":"#8c564b","type":"distinctIntersection","elems":["g","h","l","m"],"setNames":["s1","s3"]},{"name":"s2&s3","color":"#e377c2","type":"distinctIntersection","elems":"j","setNames":["s2","s3"]},{"name":"s1&s2&s3","color":"#bcbd22","type":"distinctIntersection","elems":["a","e"],"setNames":["s1","s2","s3"]}],"elems":["a","b","c","e","g","h","k","l","m","d","j","f","i"],"expressionData":false,"attrs":[],"selectionColor":"","hasSelectionOpacity":0.3,"interactive":true},"evals":[],"jsHooks":[]}</script>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">v &lt;-<span class="st"> </span><span class="kw">upsetjsEulerDiagram</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">render</span>()</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">v</a></code></pre></div>
-<div id="htmlwidget-c2cc9eb3674cc695b897" style="width:100%;height:480px;" class="upsetjs html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c2cc9eb3674cc695b897">{"x":{"renderMode":"euler","mode":"hover","sets":[{"name":"s1","type":"set","elems":["a","b","c","e","g","h","k","l","m"],"color":"#1f77b4"},{"name":"s3","type":"set","elems":["a","e","f","g","h","i","j","l","m"],"color":"#d62728"},{"name":"s2","type":"set","elems":["a","b","d","e","j"],"color":"#2ca02c"}],"combinations":[{"name":"","color":null,"type":"distinctIntersection","elems":null,"setNames":null},{"name":"s1","color":"#1f77b4","type":"distinctIntersection","elems":["c","k"],"setNames":"s1"},{"name":"s2","color":"#2ca02c","type":"distinctIntersection","elems":"d","setNames":"s2"},{"name":"s3","color":"#d62728","type":"distinctIntersection","elems":["f","i"],"setNames":"s3"},{"name":"s1&s2","color":"#9467bd","type":"distinctIntersection","elems":"b","setNames":["s1","s2"]},{"name":"s1&s3","color":"#8c564b","type":"distinctIntersection","elems":["g","h","l","m"],"setNames":["s1","s3"]},{"name":"s2&s3","color":"#e377c2","type":"distinctIntersection","elems":"j","setNames":["s2","s3"]},{"name":"s1&s2&s3","color":"#bcbd22","type":"distinctIntersection","elems":["a","e"],"setNames":["s1","s2","s3"]}],"elems":["a","b","c","e","g","h","k","l","m","d","j","f","i"],"expressionData":false,"attrs":[],"selectionColor":"","hasSelectionOpacity":0.3,"interactive":true},"evals":[],"jsHooks":[]}</script>
+<a class="sourceLine" id="cb2-4" data-line-number="4">w &lt;-<span class="st"> </span><span class="kw">upsetjsKarnaughMap</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">fromList</span>(listInput) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">interactiveChart</span>()</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">w</a></code></pre></div>
+<div id="htmlwidget-ae7b7be5c5b12a4bebb4" style="width:100%;height:480px;" class="upsetjs html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ae7b7be5c5b12a4bebb4">{"x":{"renderMode":"kmap","mode":"hover","sets":[{"name":"one","type":"set","elems":["a","b","c","e","g","h","k","l","m"],"color":null},{"name":"three","type":"set","elems":["a","e","f","g","h","i","j","l","m"],"color":null},{"name":"two","type":"set","elems":["a","b","d","e","j"],"color":null}],"combinations":[{"name":"","color":null,"type":"distinctIntersection","elems":null,"setNames":null},{"name":"one","color":null,"type":"distinctIntersection","elems":["c","k"],"setNames":"one"},{"name":"three","color":null,"type":"distinctIntersection","elems":["f","i"],"setNames":"three"},{"name":"two","color":null,"type":"distinctIntersection","elems":"d","setNames":"two"},{"name":"one&three","color":null,"type":"distinctIntersection","elems":["g","h","l","m"],"setNames":["one","three"]},{"name":"one&two","color":null,"type":"distinctIntersection","elems":"b","setNames":["one","two"]},{"name":"two&three","color":null,"type":"distinctIntersection","elems":"j","setNames":["two","three"]},{"name":"one&two&three","color":null,"type":"distinctIntersection","elems":["a","e"],"setNames":["one","two","three"]}],"elems":["a","b","c","e","g","h","k","l","m","d","j","f","i"],"expressionData":false,"attrs":[],"interactive":true},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="input-formats" class="section level2">
+<h2>Input Formats</h2>
+<p>same as for <code>upsetjs</code>: <code>fromList</code>, <code>fromDataFrame</code>, and <code>fromExpression</code></p>
+</div>
+<div id="data-intersections" class="section level2">
+<h2>Data Intersections</h2>
+<p>not possible to define since the number of sections in the Venn diagrams are fixed</p>
+</div>
+<div id="interaction" class="section level2">
+<h2>Interaction</h2>
+<div id="interactivity" class="section level3">
+<h3>Interactivity</h3>
+<p>same as <code>upsetjs</code></p>
+</div>
+<div id="selection" class="section level3">
+<h3>Selection</h3>
+<p>same as <code>upsetjs</code></p>
+</div>
+</div>
+<div id="queries" class="section level2">
+<h2>Queries</h2>
+<p>same as <code>upsetjs</code></p>
+</div>
+<div id="attributes" class="section level2">
+<h2>Attributes</h2>
+<p>not supported</p>
+</div>
+<div id="styling" class="section level2">
+<h2>Styling</h2>
+<div id="theme" class="section level3">
+<h3>Theme</h3>
+<p>same as <code>upsetjs</code></p>
+</div>
+<div id="title" class="section level3">
+<h3>Title</h3>
+<p>provided as a different function: <code>chartKarnaughMapLabels</code></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">upsetjsKarnaughMap</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">fromList</span>(listInput) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">chartKarnaughMapLabels</span>(<span class="dt">title =</span> <span class="st">&quot;Chart Title&quot;</span>, </a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">    <span class="dt">description =</span> <span class="st">&quot;this is a long chart description&quot;</span>)</a></code></pre></div>
+<div id="htmlwidget-17fb2c6252cc392e757f" style="width:100%;height:480px;" class="upsetjs html-widget"></div>
+<script type="application/json" data-for="htmlwidget-17fb2c6252cc392e757f">{"x":{"renderMode":"kmap","mode":"hover","sets":[{"name":"one","type":"set","elems":["a","b","c","e","g","h","k","l","m"],"color":null},{"name":"three","type":"set","elems":["a","e","f","g","h","i","j","l","m"],"color":null},{"name":"two","type":"set","elems":["a","b","d","e","j"],"color":null}],"combinations":[{"name":"","color":null,"type":"distinctIntersection","elems":null,"setNames":null},{"name":"one","color":null,"type":"distinctIntersection","elems":["c","k"],"setNames":"one"},{"name":"three","color":null,"type":"distinctIntersection","elems":["f","i"],"setNames":"three"},{"name":"two","color":null,"type":"distinctIntersection","elems":"d","setNames":"two"},{"name":"one&three","color":null,"type":"distinctIntersection","elems":["g","h","l","m"],"setNames":["one","three"]},{"name":"one&two","color":null,"type":"distinctIntersection","elems":"b","setNames":["one","two"]},{"name":"two&three","color":null,"type":"distinctIntersection","elems":"j","setNames":["two","three"]},{"name":"one&two&three","color":null,"type":"distinctIntersection","elems":["a","e"],"setNames":["one","two","three"]}],"elems":["a","b","c","e","g","h","k","l","m","d","j","f","i"],"expressionData":false,"attrs":[],"title":"Chart Title","description":"this is a long chart description"},"evals":[],"jsHooks":[]}</script>
+</div>
 </div>
 </div>
 
