@@ -11,7 +11,8 @@ fromList(
   limit = NULL,
   shared = NULL,
   shared.mode = "click",
-  colors = NULL
+  colors = NULL,
+  c_type = NULL
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ fromList(
 \item{shared.mode}{whether on 'hover' or 'click' (default) is synced}
 
 \item{colors}{the optional list with set name to color}
+
+\item{c_type}{the combination type to use or "none" for disabling initial generation}
 }
 \value{
 the object given as first argument

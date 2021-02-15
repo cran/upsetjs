@@ -20,7 +20,7 @@ upsetjs() %>% fromList(list(one = c('a', 'b', 'c', 'e', 'g', 'h', 'k', 'l', 'm')
 expressionInput <- list(one = 9, two = 5, three = 9, `one&two` = 3, `one&three` = 6, `two&three` = 3, `one&two&three` = 2)
 
 
-upsetjs() %>% fromExpression(expressionInput)
+upsetjs() %>% fromExpression(expressionInput) %>% interactiveChart()
 
 ## ---- fig.width=9, fig.height=5, out.width="850px", tidy=TRUE, fig.align='center'----
 

@@ -4,8 +4,8 @@ Title: 'HTMLWidget' Wrapper of 'UpSet.js' for Exploring Large Set
         Intersections
 Description: 'UpSet.js' is a re-implementation of 'UpSetR' to create interactive set visualizations for more than three sets.
   This is a 'htmlwidget' wrapper around the 'JavaScript' library 'UpSet.js'.
-Version: 1.6.0
-Date: 2020-07-02
+Version: 1.9.0
+Date: 2021-02-14
 Author: Samuel Gratzl [aut, cre]
 Authors@R: person("Samuel", "Gratzl", email = "sam@sgratzl.com", role = c("aut", "cre"))
 Maintainer: Samuel Gratzl <sam@sgratzl.com>
@@ -15,12 +15,12 @@ Depends: R (>= 3.2.0)
 License: AGPL-3 | file LICENSE
 Encoding: UTF-8
 Imports: htmlwidgets, magrittr
-Suggests: knitr, crosstalk, rmarkdown, formatR, tibble
+Suggests: knitr, crosstalk, rmarkdown, formatR, tibble, testthat
 LazyData: true
-RoxygenNote: 7.1.0.9000
+RoxygenNote: 7.1.1
 VignetteBuilder: knitr
 Language: en-US
 NeedsCompilation: no
-Packaged: 2020-07-02 10:57:36 UTC; sam
+Packaged: 2021-02-15 07:36:00 UTC; sam
 Repository: CRAN
-Date/Publication: 2020-07-02 11:50:02 UTC
+Date/Publication: 2021-02-15 08:00:02 UTC
