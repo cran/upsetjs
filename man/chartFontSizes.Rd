@@ -48,6 +48,7 @@ the object given as first argument
 specify chart font sizes
 }
 \examples{
-upsetjs() \%>\% fromList(list(a=c(1,2,3), b=c(2,3))) \%>\% chartFontSizes(font.family="serif")
-
+upsetjs() \%>\%
+  fromList(list(a = c(1, 2, 3), b = c(2, 3))) \%>\%
+  chartFontSizes(font.family = "serif")
 }

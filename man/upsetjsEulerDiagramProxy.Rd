@@ -19,6 +19,6 @@ reactive helper to update an upsetjs euler diagram in place
 }
 \examples{
 \dontrun{
-upsetjsEulerDiagramProxy('upsetjs1', session) \%>\% setSelection('a')
+upsetjsEulerDiagramProxy("upsetjs1", session) \%>\% setSelection("a")
 }
 }

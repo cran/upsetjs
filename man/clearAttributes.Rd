@@ -16,7 +16,7 @@ the object given as first argument
 clears the list of attributes for incremental updates
 }
 \examples{
-upsetjs() \%>\% fromList(list(a=c(1,2,3), b=c(2,3))) \%>\%
-clearAttributes()
-
+upsetjs() \%>\%
+  fromList(list(a = c(1, 2, 3), b = c(2, 3))) \%>\%
+  clearAttributes()
 }

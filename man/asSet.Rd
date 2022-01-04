@@ -22,6 +22,5 @@ the set object
 creates a new UpSet set structure
 }
 \examples{
-asSet('a', c(1,2,3))
-
+asSet("a", c(1, 2, 3))
 }

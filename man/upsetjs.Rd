@@ -28,5 +28,5 @@ An object of class \code{upsetjs} and \code{htmlwidget}
 upsetjs a htmlwidget wrapper around UpSet.js (\url{https://upset.js.org/})
 }
 \examples{
-upsetjs() \%>\% fromList(list(a=c(1,2,3), b=c(2,3)))
+upsetjs() \%>\% fromList(list(a = c(1, 2, 3), b = c(2, 3)))
 }

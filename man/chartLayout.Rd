@@ -12,7 +12,10 @@ chartLayout(
   bar.padding = NULL,
   dot.padding = NULL,
   numerical.scale = NULL,
-  band.scale = NULL
+  band.scale = NULL,
+  set.label.alignment = NULL,
+  set.max.scale = NULL,
+  combination.max.scale = NULL
 )
 }
 \arguments{
@@ -31,6 +34,12 @@ chartLayout(
 \item{numerical.scale}{numerical scale: linear (default) or log}
 
 \item{band.scale}{band scale: band (default)}
+
+\item{set.label.alignment}{set label alignment: left, center (default), right}
+
+\item{set.max.scale}{maximum value for the set scale}
+
+\item{combination.max.scale}{maximum value for the combination scale}
 }
 \value{
 the object given as first argument
@@ -39,6 +48,7 @@ the object given as first argument
 specify the chart layout
 }
 \examples{
-upsetjs() \%>\% fromList(list(a=c(1,2,3), b=c(2,3))) \%>\% chartLayout(width.ratios=c(0.4, 0.2, 0.4))
-
+upsetjs() \%>\%
+  fromList(list(a = c(1, 2, 3), b = c(2, 3))) \%>\%
+  chartLayout(width.ratios = c(0.4, 0.2, 0.4))
 }

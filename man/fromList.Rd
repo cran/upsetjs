@@ -39,6 +39,5 @@ the object given as first argument
 generates the sets from a lists object
 }
 \examples{
-upsetjs() \%>\% fromList(list(a=c(1,2,3), b=c(2,3)))
-
+upsetjs() \%>\% fromList(list(a = c(1, 2, 3), b = c(2, 3)))
 }

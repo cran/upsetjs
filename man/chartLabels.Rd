@@ -39,6 +39,7 @@ the object given as first argument
 specify chart labels
 }
 \examples{
-upsetjs() \%>\% fromList(list(a=c(1,2,3), b=c(2,3))) \%>\% chartLabels(set.name="Test")
-
+upsetjs() \%>\%
+  fromList(list(a = c(1, 2, 3), b = c(2, 3))) \%>\%
+  chartLabels(set.name = "Test")
 }

@@ -30,5 +30,6 @@ An \code{htmlwidgets::sizingPolicy} object
 upsetjs sizing policy
 }
 \examples{
-upsetjs(sizingPolicy=upsetjsSizingPolicy(padding=20)) \%>\% fromList(list(a=c(1,2,3), b=c(2,3)))
+upsetjs(sizingPolicy = upsetjsSizingPolicy(padding = 20)) \%>\%
+  fromList(list(a = c(1, 2, 3), b = c(2, 3)))
 }

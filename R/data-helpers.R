@@ -5,36 +5,40 @@
 # Copyright (c) 2021 Samuel Gratzl <sam@sgratzl.com>
 #
 
-sortSets = function(sets,
-                    order.by = 'cardinality',
-                    limit = NULL) {
-  set_attr = function(order.by.attr) {
-    if (order.by.attr == 'cardinality') {
-      sapply(sets, function (x)
-        if (length(x$elems) == 0)
+sortSets <- function(sets,
+                     order.by = "cardinality",
+                     limit = NULL) {
+  setAttr <- function(order.by.attr) {
+    if (order.by.attr == "cardinality") {
+      sapply(sets, function(x) {
+        if (length(x$elems) == 0) {
           x$cardinality * -1
-        else
-          length(x$elems) * -1)
-    } else if (order.by.attr == 'degree') {
-      sapply(sets, function (x)
-        length(x$setNames))
+        } else {
+          length(x$elems) * -1
+        }
+      })
+    } else if (order.by.attr == "degree") {
+      sapply(sets, function(x) {
+        length(x$setNames)
+      })
     } else {
-      sapply(sets, function (x)
-        x$name)
+      sapply(sets, function(x) {
+        x$name
+      })
     }
   }
 
-  if (length(order.by) == 1 && order.by[1] == 'cardinality') {
-    order.by = c('cardinality', 'name')
-  } else if (length(order.by) == 1 && order.by[1] == 'degree') {
-    order.by = c('degree', 'name')
+  if (length(order.by) == 1 && order.by[1] == "cardinality") {
+    order.by <- c("cardinality", "name")
+  } else if (length(order.by) == 1 && order.by[1] == "degree") {
+    order.by <- c("degree", "name")
   }
   if (length(sets) > 1) {
-    values = lapply(order.by, set_attr)
-    o = do.call(order, values)
-    r = sets[o]
+    values <- lapply(order.by, setAttr)
+    o <- do.call(order, values)
+    r <- sets[o]
   } else {
-    r = sets
+    r <- sets
   }
   if (is.null(limit) || length(r) <= limit) {
     r
@@ -43,15 +47,15 @@ sortSets = function(sets,
   }
 }
 
-colorLookup = function(colors = NULL) {
+colorLookup <- function(colors = NULL) {
   if (is.null(colors)) {
-    function (c) {
+    function(c) {
       NULL
     }
   } else {
-    color_names = names(colors)
-    function (c) {
-      if (c %in% color_names) {
+    colorNames <- names(colors)
+    function(c) {
+      if (c %in% colorNames) {
         colors[[c]]
       } else {
         NULL
@@ -60,95 +64,99 @@ colorLookup = function(colors = NULL) {
   }
 }
 
-generateCombinationsImpl = function(sets,
-                                    c_type,
-                                    min,
-                                    max,
-                                    empty,
-                                    order.by,
-                                    limit,
-                                    colors = NULL,
-                                    symbol = "&",
-                                    store.elems = TRUE) {
-  combinations = list()
-  distinct = (c_type == 'distinctIntersection')
-  cc = colorLookup(colors)
+generateCombinationsImpl <- function(sets,
+                                     c_type,
+                                     min,
+                                     max,
+                                     empty,
+                                     order.by,
+                                     limit,
+                                     colors = NULL,
+                                     symbol = "&",
+                                     store.elems = TRUE) {
+  combinations <- list()
+  distinct <- (c_type == "distinctIntersection")
+  cc <- colorLookup(colors)
 
-  mergeUnion = function(a, b) {
-    ab_sets = union(a$setNames, b$setNames)
-    ab_name = paste(ab_sets, collapse = symbol)
-    ab_elems = c()
+  mergeUnion <- function(a, b) {
+    abSets <- union(a$setNames, b$setNames)
+    abName <- paste(abSets, collapse = symbol)
+    abElems <- c()
     if (a$cardinality == 0) {
-      ab_elems = b$elems
+      abElems <- b$elems
     } else if (b$cardinality == 0) {
-      ab_elems = a$elems
+      abElems <- a$elems
     } else {
-      ab_elems = union(a$elems, b$elems)
+      abElems <- union(a$elems, b$elems)
     }
-    asCombination(ab_name, ab_elems, 'union', ab_sets, color=cc(ab_name))
+    asCombination(abName, abElems, "union", abSets, color = cc(abName))
   }
 
-  mergeIntersect = function(a, b) {
-    ab_sets = union(a$setNames, b$setNames)
-    ab_name = paste(ab_sets, collapse = symbol)
-    ab_elems = c()
+  mergeIntersect <- function(a, b) {
+    abSets <- union(a$setNames, b$setNames)
+    abName <- paste(abSets, collapse = symbol)
+    abElems <- c()
     if (a$cardinality > 0 && b$cardinality > 0) {
-      ab_elems = intersect(a$elems, b$elems)
+      abElems <- intersect(a$elems, b$elems)
     }
-    asCombination(ab_name, ab_elems, 'intersect', ab_sets, color=cc(ab_name))
+    asCombination(abName, abElems, "intersect", abSets, color = cc(abName))
   }
 
-  calc = ifelse(c_type == "union", mergeUnion, mergeIntersect)
+  calc <- ifelse(c_type == "union", mergeUnion, mergeIntersect)
 
-  push_combination = function(s) {
+  pushCombination <- function(s) {
     if (s$degree < min || (!is.null(max) && s$degree > max) || (s$cardinality == 0 && !empty)) {
       return()
     }
     if (!store.elems) {
-      s <<- asCombination(s$name, c(), 'distinctIntersection', s$setNames, cardinality=s$cardinality, color=s$color)
+      s <<- asCombination(s$name, c(), "distinctIntersection", s$setNames, cardinality = s$cardinality, color = s$color)
     }
-    if (!distinct || s$degree == 1) {
+    if (!distinct) {
       combinations <<- c(combinations, list(s))
       return()
     }
-    otherSets = Filter(function(ss) {
+    otherSets <- Filter(function(ss) {
       !(ss$name %in% s$setNames)
     }, sets)
-    dElems = Filter(function(e) {
-      for(o in otherSets) {
+    dElems <- Filter(function(e) {
+      for (o in otherSets) {
         if (e %in% o$elems) {
           return(FALSE)
         }
       }
       TRUE
-     }, s$elems)
+    }, s$elems)
 
     if (s$cardinality == length(dElems)) {
       combinations <<- c(combinations, list(s))
       return()
     }
 
-    sDistinct = asCombination(s$name, if (store.elems) { dElems } else { c() }, 'distinctIntersection', s$setNames, cardinality=length(dElems), color=s$color)
+    sDistinct <- asCombination(s$name, if (store.elems) {
+      dElems
+    } else {
+      c()
+    }, "distinctIntersection", s$setNames, cardinality = length(dElems), color = s$color)
     if (sDistinct$cardinality > 0 || empty) {
       combinations <<- c(combinations, list(sDistinct))
     }
   }
 
-  generateLevel = function(arr, degree) {
+  generateLevel <- function(arr, degree) {
     if (!is.null(max) && degree > max) {
       return()
     }
-    l = length(arr)
-    for(i in 1:l) {
-      a = arr[[i]]
-      sub = list()
+    l <- length(arr)
+    for (i in 1:l) {
+      a <- arr[[i]]
+      sub <- list()
       if (i < l) {
-        for(j in (i+1):l) {
-          b = arr[[j]]
-          ab = calc(a,b)
-          push_combination(ab)
-          if (c_type == 'union' || ab$cardinality > 0 || empty) {
-            sub[[length(sub) + 1]] = ab
+        for (j in (i + 1):l) {
+          b <- arr[[j]]
+          ab <- calc(a, b)
+          pushCombination(ab)
+          if (c_type == "union" || ab$cardinality > 0 || empty) {
+            sub[[length(sub) + 1]] <- ab
           }
         }
       }
@@ -158,64 +166,61 @@ generateCombinationsImpl = function(sets,
     }
   }
 
-  degree1 = lapply(1:length(sets), function(i) {
-    s = sets[[i]]
-    s_c = asCombination(s$name, s$elems, c_type, c(s$name), s$cardinality, s$color)
-    push_combination(s_c)
-    s_c
+  degree1 <- lapply(seq_along(sets), function(i) {
+    s <- sets[[i]]
+    sC <- asCombination(s$name, s$elems, c_type, c(s$name), s$cardinality, s$color)
+    pushCombination(sC)
+    sC
   })
   generateLevel(degree1, 2)
 
-  names(combinations) = NULL
+  names(combinations) <- NULL
   sortSets(combinations, order.by, limit)
 }
 
-extractCombinationsImpl = function(df,
-                                   sets,
-                                   empty,
-                                   order.by,
-                                   limit = NULL,
-                                   colors = NULL,
-                                   symbol = "&",
-                                   store.elems = TRUE) {
-  combination_names = c()
-  lookup = new.env(hash=TRUE, parent=emptyenv())
-  all_set_names = sapply(1:length(sets), function(i) sets[[i]]$name)
-  if (is.list(all_set_names)) {
-    all_set_names = unlist(all_set_names)
+extractCombinationsImpl <- function(df,
+                                    sets,
+                                    empty,
+                                    order.by,
+                                    limit = NULL,
+                                    colors = NULL,
+                                    symbol = "&",
+                                    store.elems = TRUE) {
+  allSetNames <- sapply(seq_along(sets), function(i) sets[[i]]$name)
+  if (is.list(allSetNames)) {
+    allSetNames <- unlist(allSetNames)
   }
-  cc = colorLookup(colors)
+  cc <- colorLookup(colors)
 
-  elems = rownames(df)
-  df_sets = df[, all_set_names]
-  c_name = apply(df_sets, 1, function(r) {
-    nn = all_set_names[as.logical(r)]
+  elems <- rownames(df)
+  dfSets <- df[, allSetNames]
+  cName <- apply(dfSets, 1, function(r) {
+    nn <- allSetNames[as.logical(r)]
     if (length(nn) == 1) {
       nn
     } else {
-      paste(nn, collapse=symbol)
+      paste(nn, collapse = symbol)
     }
   })
-  dd = aggregate(elems, list(c_name = c_name), function(r) {
+  dd <- aggregate(elems, list(c_name = cName), function(r) {
     r
   })
-  set_names = strsplit(dd$c_name, symbol, fixed = TRUE)
-  set_colors = cc(dd$c_name)
+  setNames <- strsplit(dd$c_name, symbol, fixed = TRUE)
+  setColors <- cc(dd$c_name)
 
-  combinations = lapply(1:nrow(dd), function(i) {
-    elems = as.character(dd[i, 'x'][[1]])
+  combinations <- lapply(seq_len(nrow(dd)), function(i) {
+    elems <- as.character(dd[i, "x"][[1]])
     structure(
       list(
-        name = dd[i, 'c_name'],
-        color = set_colors[i],
-        type = 'distinctIntersection',
+        name = dd[i, "c_name"],
+        color = setColors[i],
+        type = "distinctIntersection",
         elems = if (store.elems) elems else c(),
-        cardinality = length(elems),
-        setNames = set_names[i][[1]]
+        setNames = setNames[i][[1]], cardinality = length(elems)
       ),
       class = "upsetjs_combination"
     )
   })
-  names(combinations) = NULL
+  names(combinations) <- NULL
   sortSets(combinations, order.by, limit)
 }

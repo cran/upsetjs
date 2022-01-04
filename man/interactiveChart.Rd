@@ -9,7 +9,7 @@ interactiveChart(upsetjs, value = TRUE)
 \arguments{
 \item{upsetjs}{an object of class \code{upsetjs} or \code{upsetjs_proxy}}
 
-\item{value}{whether to enable or disable}
+\item{value}{whether to enable or disable or set the mode: hover, click, contextMenu}
 }
 \value{
 the object given as first argument
@@ -18,6 +18,7 @@ the object given as first argument
 make it an interactive chart
 }
 \examples{
-upsetjs() \%>\% fromList(list(a=c(1,2,3), b=c(2,3))) \%>\% interactiveChart()
-
+upsetjs() \%>\%
+  fromList(list(a = c(1, 2, 3), b = c(2, 3))) \%>\%
+  interactiveChart()
 }

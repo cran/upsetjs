@@ -20,7 +20,7 @@ the object given as first argument
 specify chart labels
 }
 \examples{
-upsetjsKarnaughMap() \%>\% fromList(list(a=c(1,2,3), b=c(2,3))) \%>\%
-chartKarnaughMapLabels(title="Test")
-
+upsetjsKarnaughMap() \%>\%
+  fromList(list(a = c(1, 2, 3), b = c(2, 3))) \%>\%
+  chartKarnaughMapLabels(title = "Test")
 }

@@ -36,6 +36,7 @@ the object given as first argument
 configure the generation of the unions
 }
 \examples{
-upsetjs() \%>\% fromList(list(a=c(1,2,3), b=c(2,3))) \%>\% generateUnions()
-
+upsetjs() \%>\%
+  fromList(list(a = c(1, 2, 3), b = c(2, 3))) \%>\%
+  generateUnions()
 }

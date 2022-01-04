@@ -33,6 +33,5 @@ the set object
 creates a new UpSet set combination structure
 }
 \examples{
-asCombination('a', c(1,2,3))
-
+asCombination("a", c(1, 2, 3))
 }

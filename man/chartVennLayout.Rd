@@ -18,6 +18,7 @@ the object given as first argument
 specify the chart venn layout
 }
 \examples{
-upsetjsVennDiagram() \%>\% fromList(list(a=c(1,2,3), b=c(2,3))) \%>\% chartVennLayout(padding=10)
-
+upsetjsVennDiagram() \%>\%
+  fromList(list(a = c(1, 2, 3), b = c(2, 3))) \%>\%
+  chartVennLayout(padding = 10)
 }

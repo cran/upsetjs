@@ -36,6 +36,7 @@ the object given as first argument
 configure the generation of the distinct intersections
 }
 \examples{
-upsetjs() \%>\% fromList(list(a=c(1,2,3), b=c(2,3))) \%>\% generateDistinctIntersections(min=2)
-
+upsetjs() \%>\%
+  fromList(list(a = c(1, 2, 3), b = c(2, 3))) \%>\%
+  generateDistinctIntersections(min = 2)
 }

@@ -27,5 +27,5 @@ An object of class \code{upsetjs_venn} and \code{htmlwidget}
 upsetjs - factory for UpSet.js Karnaugh Map HTMLWidget
 }
 \examples{
-upsetjsKarnaughMap() \%>\% fromList(list(a=c(1,2,3), b=c(2,3)))
+upsetjsKarnaughMap() \%>\% fromList(list(a = c(1, 2, 3), b = c(2, 3)))
 }

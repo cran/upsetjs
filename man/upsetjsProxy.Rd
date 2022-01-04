@@ -19,6 +19,6 @@ reactive helper to update an upsetjs inplace
 }
 \examples{
 \dontrun{
-upsetjsProxy('upsetjs1', session) \%>\% setSelection('a')
+upsetjsProxy("upsetjs1", session) \%>\% setSelection("a")
 }
 }

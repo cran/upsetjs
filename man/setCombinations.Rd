@@ -18,6 +18,7 @@ the object given as first argument
 set the vector of combinations
 }
 \examples{
-upsetjs() \%>\% setCombinations(list(asCombination('a', c(1,2,3)))) \%>\% getCombinations()
-
+upsetjs() \%>\%
+  setCombinations(list(asCombination("a", c(1, 2, 3)))) \%>\%
+  getCombinations()
 }

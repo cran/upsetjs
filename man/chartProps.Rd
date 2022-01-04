@@ -18,6 +18,7 @@ the object given as first argument
 generic set chart props
 }
 \examples{
-upsetjs() \%>\% fromList(list(a=c(1,2,3), b=c(2,3))) \%>\% chartProps(theme="dark")
-
+upsetjs() \%>\%
+  fromList(list(a = c(1, 2, 3), b = c(2, 3))) \%>\%
+  chartProps(theme = "dark")
 }

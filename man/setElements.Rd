@@ -18,6 +18,7 @@ the object given as first argument
 set the vector of elements
 }
 \examples{
-upsetjs() \%>\% setElements(c(1,2,3,4,5)) \%>\% getElements()
-
+upsetjs() \%>\%
+  setElements(c(1, 2, 3, 4, 5)) \%>\%
+  getElements()
 }

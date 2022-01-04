@@ -27,5 +27,5 @@ An object of class \code{upsetjs_venn} and \code{htmlwidget}
 upsetjs - factory for UpSet.js Euler Diagram HTMLWidget
 }
 \examples{
-upsetjs() \%>\% fromList(list(a=c(1,2,3), b=c(2,3)))
+upsetjs() \%>\% fromList(list(a = c(1, 2, 3), b = c(2, 3)))
 }

@@ -19,6 +19,6 @@ reactive helper to update an upsetjs karnaugh map diagram in place
 }
 \examples{
 \dontrun{
-upsetjsKarnaughMapProxy('upsetjs1', session) \%>\% setSelection('a')
+upsetjsKarnaughMapProxy("upsetjs1", session) \%>\% setSelection("a")
 }
 }

@@ -27,6 +27,7 @@ the object given as first argument
 specify the chart karnaugh map layout
 }
 \examples{
-upsetjsKarnaughMap() \%>\% fromList(list(a=c(1,2,3), b=c(2,3))) \%>\% chartKarnaughMapLayout(padding=10)
-
+upsetjsKarnaughMap() \%>\%
+  fromList(list(a = c(1, 2, 3), b = c(2, 3))) \%>\%
+  chartKarnaughMapLayout(padding = 10)
 }

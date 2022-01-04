@@ -22,6 +22,7 @@ the object given as first argument
 adds a new query to the plot
 }
 \examples{
-upsetjs() \%>\% fromList(list(a=c(1,2,3), b=c(2,3))) \%>\%
-addCategoricalAttribute('attr', as.factor(sample(c('male','female'), 3, replace=TRUE)))
+upsetjs() \%>\%
+  fromList(list(a = c(1, 2, 3), b = c(2, 3))) \%>\%
+  addCategoricalAttribute("attr", as.factor(sample(c("male", "female"), 3, replace = TRUE)))
 }

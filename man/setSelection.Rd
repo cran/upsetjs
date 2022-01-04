@@ -18,6 +18,7 @@ the object given as first argument
 sets the selection of the chart
 }
 \examples{
-upsetjs() \%>\% fromList(list(a=c(1,2,3), b=c(2,3))) \%>\% setSelection("b")
-
+upsetjs() \%>\%
+  fromList(list(a = c(1, 2, 3), b = c(2, 3))) \%>\%
+  setSelection("b")
 }

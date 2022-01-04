@@ -19,6 +19,6 @@ reactive helper to update an upsetjs venn diagram in place
 }
 \examples{
 \dontrun{
-upsetjsVennDiagramProxy('upsetjs1', session) \%>\% setSelection('a')
+upsetjsVennDiagramProxy("upsetjs1", session) \%>\% setSelection("a")
 }
 }

@@ -16,6 +16,7 @@ vector of sets
 extract the vector of combinations
 }
 \examples{
-upsetjs() \%>\% fromList(list(a=c(1,2,3), b=c(2,3))) \%>\% getCombinations()
-
+upsetjs() \%>\%
+  fromList(list(a = c(1, 2, 3), b = c(2, 3))) \%>\%
+  getCombinations()
 }

@@ -18,7 +18,10 @@ the object given as first argument
 set the attributes
 }
 \examples{
-upsetjs() \%>\% fromList(list(a=c(1,2,3), b=c(2,3))) \%>\%
-setAttributes(list(attr=runif(3), cat=as.factor(sample(c('male','female'), 3, replace=TRUE))))
-
+upsetjs() \%>\%
+  fromList(list(a = c(1, 2, 3), b = c(2, 3))) \%>\%
+  setAttributes(list(
+    attr = runif(3),
+    cat = as.factor(sample(c("male", "female"), 3, replace = TRUE))
+  ))
 }

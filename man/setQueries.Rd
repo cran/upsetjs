@@ -18,7 +18,7 @@ the object given as first argument
 set the queries
 }
 \examples{
-upsetjs() \%>\% fromList(list(a=c(1,2,3), b=c(2,3))) \%>\%
-setQueries(list(list(name="Q1", color="red", set="b")))
-
+upsetjs() \%>\%
+  fromList(list(a = c(1, 2, 3), b = c(2, 3))) \%>\%
+  setQueries(list(list(name = "Q1", color = "red", set = "b")))
 }

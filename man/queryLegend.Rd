@@ -18,7 +18,8 @@ the object given as first argument
 renders a legend for the queries
 }
 \examples{
-upsetjs() \%>\% fromList(list(a=c(1,2,3), b=c(2,3))) \%>\%
-addQuery(name="Q1", color="red", set="b") \%>\% queryLegend(FALSE)
-
+upsetjs() \%>\%
+  fromList(list(a = c(1, 2, 3), b = c(2, 3))) \%>\%
+  addQuery(name = "Q1", color = "red", set = "b") \%>\%
+  queryLegend(FALSE)
 }

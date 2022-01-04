@@ -33,6 +33,5 @@ the object given as first argument
 generates the sets from a lists object that contained the cardinalities of both sets and combinations (&)
 }
 \examples{
-upsetjs() \%>\% fromExpression(list(a=3, b=2, `a&b`=2))
-
+upsetjs() \%>\% fromExpression(list(a = 3, b = 2, `a&b` = 2))
 }

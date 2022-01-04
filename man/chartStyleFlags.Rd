@@ -22,6 +22,7 @@ the object given as first argument
 specify chart flags
 }
 \examples{
-upsetjs() \%>\% fromList(list(a=c(1,2,3), b=c(2,3))) \%>\% chartStyleFlags(id="test")
-
+upsetjs() \%>\%
+  fromList(list(a = c(1, 2, 3), b = c(2, 3))) \%>\%
+  chartStyleFlags(id = "test")
 }

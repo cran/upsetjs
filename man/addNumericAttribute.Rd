@@ -24,6 +24,7 @@ the object given as first argument
 adds a new numeric attribute to the plot
 }
 \examples{
-upsetjs() \%>\% fromList(list(a=c(1,2,3), b=c(2,3))) \%>\%
-addNumericAttribute('attr', runif(3))
+upsetjs() \%>\%
+  fromList(list(a = c(1, 2, 3), b = c(2, 3))) \%>\%
+  addNumericAttribute("attr", runif(3))
 }

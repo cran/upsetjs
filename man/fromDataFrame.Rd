@@ -45,7 +45,6 @@ the object given as first argument
 extract the sets from a data frame (rows = elems, columns = sets, cell = contained)
 }
 \examples{
-df <- as.data.frame(list(a=c(1, 1, 1),b=c(0, 1, 1)),row.names=c('a', 'b', 'c'))
+df <- as.data.frame(list(a = c(1, 1, 1), b = c(0, 1, 1)), row.names = c("a", "b", "c"))
 upsetjs() \%>\% fromDataFrame(df)
-
 }
