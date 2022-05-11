@@ -9,7 +9,7 @@ setSelection(upsetjs, name = NULL)
 \arguments{
 \item{upsetjs}{an object of class \code{upsetjs} or \code{upsetjs_proxy}}
 
-\item{name}{the name of the set to select}
+\item{name}{the name of the set to select or a list with name and type}
 }
 \value{
 the object given as first argument

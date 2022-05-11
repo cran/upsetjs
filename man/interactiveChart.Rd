@@ -4,12 +4,14 @@
 \alias{interactiveChart}
 \title{make it an interactive chart}
 \usage{
-interactiveChart(upsetjs, value = TRUE)
+interactiveChart(upsetjs, value = TRUE, events_nonce = FALSE)
 }
 \arguments{
 \item{upsetjs}{an object of class \code{upsetjs} or \code{upsetjs_proxy}}
 
 \item{value}{whether to enable or disable or set the mode: hover, click, contextMenu}
+
+\item{events_nonce}{whether to enable send a unique once (event date) for each event to prevent deduplication}
 }
 \value{
 the object given as first argument
